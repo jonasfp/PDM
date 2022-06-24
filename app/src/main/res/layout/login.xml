@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".view.loginActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/orange"
+        app:title="@string/app_name"
+        app:titleCentered="true"
+        app:titleTextColor="@color/white" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="80dp"
+        android:src="@drawable/imginicial" />
+
+    <EditText
+        android:id="@+id/edit_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="@color/cinzaclaro"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:textColor="#959595"
+        android:textSize="25dp" />
+
+    <EditText
+        android:id="@+id/edit_senha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="@color/cinzaclaro"
+        android:hint="@string/senha"
+        android:inputType="textPassword"
+        android:textColor="#959595"
+        android:textSize="25dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_entrar"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:text="@string/entrar"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:backgroundTint="@color/orange"
+        app:cornerRadius="15dp" />
+
+
+    <TextView
+        android:id="@+id/txt_criarconta_"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/criarconta"
+        android:textAlignment="center"
+        android:textColor="@color/orange" />
+</LinearLayout>

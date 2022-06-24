@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".view.loginActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/orange"
+        app:title="@string/criarconta"
+        app:titleCentered="true"
+        app:titleTextColor="@color/white"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        android:layout_marginBottom="40dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selecione abaixo o tipo de usuário:"
+        android:layout_marginLeft="40dp"
+        android:textColor="#959595"
+        android:textSize="20dp"/>
+
+    <Spinner
+        android:id="@+id/spinerUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp" />
+    <EditText
+        android:id="@+id/edit_criarnome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:hint="@string/nome"
+        android:textColor="#959595"
+        android:textSize="25dp"
+        android:backgroundTint="@color/cinzaclaro"
+        android:background="@drawable/rounded_edittext"/>
+
+    <EditText
+        android:id="@+id/edit_criaremail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:textColor="#959595"
+        android:textSize="25dp"
+        android:backgroundTint="@color/cinzaclaro"
+        android:background="@drawable/rounded_edittext"/>
+
+    <EditText
+        android:id="@+id/edit_criarsenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:hint="@string/senha"
+        android:inputType="textPassword"
+        android:textColor="#959595"
+        android:textSize="25dp"
+        android:backgroundTint="@color/cinzaclaro"
+        android:background="@drawable/rounded_edittext"/>
+
+        <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_criarcadastro"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:text="@string/cadastrar"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:backgroundTint="@color/orange"
+        app:cornerRadius="15dp" />
+</LinearLayout>

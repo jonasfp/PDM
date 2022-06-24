@@ -1,0 +1,13 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <string android:name="app_name">Cheguei.com!</string>
+    <string android:name="email">E-mail</string>
+    <string android:name="senha">Senha</string>
+    <string android:name="entrar">Entrar</string>
+    <string android:name="criarconta">Criar conta</string>
+    <string android:name="nome">Nome</string>
+    <string android:name="cadastrar">Cadastrar</string>
+    <string android:name="encomendas">Encomendas</string>
+    <string android:name="produto">Cadastrar</string>
+    <string android:name="pesquisar">Pesquisar</string>
+    <string android:name="apartamento">Qual o número do apartamento ?</string>
+</resources>

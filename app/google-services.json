@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "632590937972",
+    "project_id": "cheguei102",
+    "storage_bucket": "cheguei102.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632590937972:android:b430901eff1e8e86738621",
+        "android_client_info": {
+          "package_name": "br.edu.ifpe.recife.tads.cheguei_102"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "632590937972-uevgjj6aobei4l40stjs65p6kilf8dm2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCf9uNvorzo7oYKK1mbH8HYcJP1iAp4Osw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "632590937972-uevgjj6aobei4l40stjs65p6kilf8dm2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

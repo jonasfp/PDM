@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Cheguei.com!</string>
+    <string name="email">E-mail</string>
+    <string name="senha">Senha</string>
+    <string name="entrar">Entrar</string>
+    <string name="criarconta">Criar conta</string>
+    <string name="nome">Nome</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="encomendas">Encomendas</string>
+    <string name="usuarios">Resultados</string>
+    <string name="produto">Cadastrar</string>
+    <string name="pesquisar">Pesquisar</string>
+    <string name="apartamento">Qual o número do apartamento ?</string>
+
+    <string-array name="perfil">
+        <item></item>
+        <item>Condômino</item>
+        <item>Porteiro</item>
+    </string-array>
+
+    <string-array name="pesquisa_Encomenda">
+        <item></item>
+        <item>Encomendas</item>
+        <item>Condôminos</item>
+    </string-array>
+
+</resources>
