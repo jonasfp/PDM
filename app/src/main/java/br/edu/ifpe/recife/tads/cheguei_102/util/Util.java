@@ -1,4 +1,5 @@
 package br.edu.ifpe.recife.tads.cheguei_102.util;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Calendar;
@@ -14,15 +15,10 @@ public class Util {
         String dia, mes, ano, dataAtual="00/00/0000";
 
         try {
-            TimeZone timeZone  = TimeZone.getTimeZone("America/Sao_Paulo");
-            Calendar calendar = Calendar.getInstance(timeZone);
-            dia = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
-            mes = String.valueOf(calendar.get(Calendar.MONTH) + 1);
-            ano = String.valueOf(calendar.get(Calendar.YEAR));
-//            dia = (Calendar.DAY_OF_MONTH < 10 ? "0" + dia : dia);
-            int mesAtual = (Calendar.MONTH) + 1;
-            mes = (mesAtual < 10) ? "0" + mes : mes;
-            dataAtual = dia + "/" + mes + "/" + ano;
+
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy" );
+            dataAtual = simpleDateFormat.format(calendar.getTime());
             return dataAtual;
 
         } catch (Exception e) { }
@@ -36,19 +32,13 @@ public class Util {
     public static String getHoraAtual() {
 
         String horaAtual = "00:00:00";
-        String hora, minuto, segundo;
 
         try {
-            TimeZone timeZone  = TimeZone.getTimeZone("America/Sao_Paulo");
-            Calendar calendar = Calendar.getInstance(timeZone);
-            int iHora = calendar.get(Calendar.HOUR_OF_DAY);
-            int iMinuto = calendar.get(Calendar.MINUTE);
-            int iSegundo = calendar.get(Calendar.SECOND);
 
-            hora = (iHora <= 9) ? "0" + iHora : Integer.toString(iHora);
-            minuto = (iMinuto <= 9) ? "0" + iMinuto : Integer.toString(iHora);
-            segundo = (iSegundo <= 9) ? "0" + iSegundo : Integer.toString(iHora);
-            horaAtual = hora + ":" + minuto + ":" + segundo;
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+            horaAtual = simpleDateFormat.format(calendar.getTime());
+
             return horaAtual;
 
         } catch (Exception e) { }
