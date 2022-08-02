@@ -62,6 +62,8 @@ public class loginActivity extends AppCompatActivity {
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+                                Toast.makeText(loginActivity.this, "Login efetuado com sucesso!",
+                                        Toast.LENGTH_SHORT).show();
                                 String uid = task.getResult().getUser().getUid();
 
                                 FirebaseFirestore.getInstance().collection("Usuários")
@@ -93,6 +95,9 @@ public class loginActivity extends AppCompatActivity {
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(loginActivity.this, "Não foi possível fazer login!",
+                                        Toast.LENGTH_SHORT).show();
+
                                 Log.i("Teste", e.getMessage());
                             }
                         });

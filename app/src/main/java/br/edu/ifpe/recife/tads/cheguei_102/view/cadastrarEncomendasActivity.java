@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -99,6 +100,8 @@ public class cadastrarEncomendasActivity extends AppCompatActivity {
             StorageReference storageRef = storage.getReference();
             StorageReference imageRef = storageRef.child("/images/" + filename);
             UploadTask uploadTask = imageRef.putBytes(imageData);
+            Toast.makeText(cadastrarEncomendasActivity.this, "Imagem salva com sucesso!",
+                    Toast.LENGTH_SHORT).show();
             uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {

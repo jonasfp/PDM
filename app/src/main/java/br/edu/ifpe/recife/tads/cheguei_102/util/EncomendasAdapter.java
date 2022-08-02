@@ -7,6 +7,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import br.edu.ifpe.recife.tads.cheguei_102.R;
 import br.edu.ifpe.recife.tads.cheguei_102.model.Encomenda;
@@ -31,14 +34,10 @@ public class EncomendasAdapter extends ArrayAdapter<Encomenda> {
         ImageView img = (ImageView) listItem.findViewById(R.id.imageViewEncomendas);
         data.setText(mSnapshots.get(position).getDataDeEntrega());
         hora.setText(mSnapshots.get(position).getHoraDaEntrega());
-        String teste = mSnapshots.get(position).getProfileUrl();
+        String url = mSnapshots.get(position).getProfileUrl();
+        Picasso.get().load(url).into(img);
         return listItem;
 
-//        FirebaseUIActivity firebaseUIActivity = new FirebaseUIActivity();
-//        firebaseUIActivity.glideCarrega();
-//      firebaseUIActivity.loadWithGlide(mSnapshots.get(position).getProfileUrl(),img);
-//        return null;
     }
-
 
 }
