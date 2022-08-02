@@ -46,9 +46,6 @@ public class Util {
         return horaAtual;
 
     }
-    public static int gerarID(){
-        int id = (int) (1 + Math.random() * 100);
-        return id;
-    }
+
 }
 
