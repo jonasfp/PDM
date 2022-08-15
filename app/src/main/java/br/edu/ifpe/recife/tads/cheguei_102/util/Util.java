@@ -1,23 +1,26 @@
 package br.edu.ifpe.recife.tads.cheguei_102.util;
+import android.text.format.Time;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class Util {
-    /**
-     * @return Retorna a data atual
-     */
+
+
 
     public static String getDataAtual() {
 
-        String dia, mes, ano, dataAtual="00/00/0000";
+        String dataAtual="00/00/0000";
 
         try {
 
             Calendar calendar = Calendar.getInstance();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy" );
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
             dataAtual = simpleDateFormat.format(calendar.getTime());
             return dataAtual;
 
@@ -26,9 +29,7 @@ public class Util {
         return dataAtual;
   }
 
-    /**
-     * @return Retorna a hora atual
-     */
+
     public static String getHoraAtual() {
 
         String horaAtual = "00:00:00";
@@ -36,8 +37,9 @@ public class Util {
         try {
 
             Calendar calendar = Calendar.getInstance();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss",Locale.getDefault());
             horaAtual = simpleDateFormat.format(calendar.getTime());
+
 
             return horaAtual;
 

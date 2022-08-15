@@ -60,13 +60,16 @@ public class criarContaActivity extends AppCompatActivity implements AdapterView
 
 
         if (position == 1) {
-            mEditUsername.setHint("Apartamento");
+            mEditUsername.setHint("Digite o númedo do apartamento");
             usuario.setPerfil("morador");
 
-        } else {
-            mEditUsername.setHint("Nome");
+        } else if (position == 2) {
+            mEditUsername.setHint("Digite o nome do porteiro");
             usuario.setPerfil("funcionario");
 
+        } else {
+            mEditUsername.setHint("");
+            usuario.setPerfil("");
         }
 
         Log.i("Teste", usuario.getPerfil());
@@ -74,7 +77,6 @@ public class criarContaActivity extends AppCompatActivity implements AdapterView
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
 
     }
 
