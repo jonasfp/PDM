@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".view.loginActivity">
+    tools:context=".view.LoginActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         style="@style/Widget.MaterialComponents.Toolbar.Primary"
@@ -32,6 +32,7 @@
         android:background="@drawable/rounded_edittext"
         android:backgroundTint="@color/cinzaclaro"
         android:hint="@string/email"
+        android:text="terraca@gmail.com"
         android:inputType="textEmailAddress"
         android:textColor="#959595"
         android:textSize="25dp" />
@@ -45,6 +46,7 @@
         android:background="@drawable/rounded_edittext"
         android:backgroundTint="@color/cinzaclaro"
         android:hint="@string/senha"
+        android:text="123456"
         android:inputType="textPassword"
         android:textColor="#959595"
         android:textSize="25dp" />
@@ -63,7 +65,7 @@
 
 
     <TextView
-        android:id="@+id/txt_criarconta_"
+        android:id="@+id/txt_criarconta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/criarconta"

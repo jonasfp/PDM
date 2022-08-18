@@ -16,60 +16,70 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.UUID;
 
 import br.edu.ifpe.recife.tads.cheguei_102.R;
 import br.edu.ifpe.recife.tads.cheguei_102.model.Encomenda;
-import br.edu.ifpe.recife.tads.cheguei_102.model.Usuario;
-import br.edu.ifpe.recife.tads.cheguei_102.util.Util;
 
-public class cadastrarEncomendasActivity extends AppCompatActivity {
+public class EncomendaCadastroActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1;
-    private ImageView imageViewCadastrar;
+    private ImageView imageViewBuscar;
     private ImageView imageViewTirarFoto;
     private EditText editTextCadastrar;
-    private EditText editTextCriarNome;
     private TextView textViewCadastrar;
-    private Uri mSelectedUri;
     String numeroApartamento;
-    Usuario usuario = new Usuario();
-
-    //Array de teste
-    private static final String[] Apartamentos = {"101A", "102A", "103A",
-            "104A", "201A", "202A", "203A", "204A", "301A", "302A", "303A", "304A",
-            "401A", "402A", "403A", "404A", "501A", "502A", "503A", "504A"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cadastrar_encomendas);
-        editTextCadastrar = (EditText) findViewById(R.id.edit_PesquisarApartamento);
-        imageViewCadastrar = (ImageView) findViewById(R.id.imgCadastrarLocalizar);
-        imageViewTirarFoto = (ImageView) findViewById(R.id.imgTirarFoto);
-        textViewCadastrar = (TextView) findViewById(R.id.txtCadastrarLocalizar);
-        editTextCriarNome = (EditText) findViewById(R.id.edit_criarnome);
+        editTextCadastrar = findViewById(R.id.edit_PesquisarApartamento);
+        imageViewBuscar = findViewById(R.id.imgCadastrarLocalizar);
+        imageViewTirarFoto = findViewById(R.id.imgTirarFoto);
+        textViewCadastrar = findViewById(R.id.txtResultadoBusca);
 
-        imageViewCadastrar.setOnClickListener(new View.OnClickListener() {
+        imageViewTirarFoto.setVisibility(View.GONE);
+
+        imageViewBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 numeroApartamento = editTextCadastrar.getText().toString();
-                Log.i("Teste", numeroApartamento);
-                for (String apt : Apartamentos) {
-                    if (apt.equals(numeroApartamento)) {
-                        textViewCadastrar.setText("Apartamento " + numeroApartamento + " localizado!");
-                        break;
-                    }
-                }
+                FirebaseFirestore.getInstance().collection("Usuários")
+                        .whereEqualTo("perfil", "condomino")
+                        .whereEqualTo("apartamento", numeroApartamento)
+                        .limit(1)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    if (!task.getResult().isEmpty()) {
+                                        textViewCadastrar.setText("Apartamento " + numeroApartamento + " localizado!\nClique na câmera para tirar uma foto.");
+                                        imageViewTirarFoto.setVisibility(View.VISIBLE);
+                                    } else {
+                                        textViewCadastrar.setText("Apartamento " + numeroApartamento + " não localizado!\nVerifique se o número está correto.");
+                                    }
+                                } else {
+                                    Log.i("TAG", "onComplete: ");
+                                }
+                            }
+                        });
             }
         });
 
@@ -86,9 +96,10 @@ public class cadastrarEncomendasActivity extends AppCompatActivity {
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        String filename = UUID.randomUUID().toString();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        String filename = UUID.randomUUID().toString();
 
         if ((requestCode == CAMERA_REQUEST) && (resultCode == Activity.RESULT_OK)) {
             Bundle extras = data.getExtras();
@@ -96,12 +107,11 @@ public class cadastrarEncomendasActivity extends AppCompatActivity {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] imageData = stream.toByteArray();
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReference();
+
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference();
             StorageReference imageRef = storageRef.child("/images/" + filename);
             UploadTask uploadTask = imageRef.putBytes(imageData);
-            Toast.makeText(cadastrarEncomendasActivity.this, "Imagem salva com sucesso!",
-                    Toast.LENGTH_SHORT).show();
+
             uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
@@ -110,24 +120,24 @@ public class cadastrarEncomendasActivity extends AppCompatActivity {
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                    String url = taskSnapshot.getDownloadUrl().toString();
                     imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
                             Log.i("Teste", uri.toString());
                             String apartamento = numeroApartamento;
-                            String dataAtual = Util.getDataAtual();
-                            String horaAtual = Util.getHoraAtual();
-                            String profileUrl = uri.toString();
-                            String uid = FirebaseAuth.getInstance().getUid();
-                            Log.i("Jonas", uid);
-                            Encomenda encomenda1 = new Encomenda(uid, dataAtual, horaAtual, profileUrl, apartamento);
+                            Date dataAtual = Calendar.getInstance(TimeZone.getTimeZone("America/Recife")).getTime();
+                            Date horaAtual = Calendar.getInstance(TimeZone.getTimeZone("America/Recife")).getTime();
+                            String imagemUrl = uri.toString();
+                            String idPorteiro = FirebaseAuth.getInstance().getUid();
+                            Log.i("Jonas", idPorteiro);
+                            String encomendaId = UUID.randomUUID().toString();
+                            Encomenda encomenda1 = new Encomenda(encomendaId, idPorteiro, dataAtual, horaAtual, imagemUrl, apartamento);
                             FirebaseFirestore.getInstance().collection("Encomendas")
-                                    .add(encomenda1)
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                        @Override
-                                        public void onSuccess(DocumentReference documentReference) {
-                                        }
+                                    .document(encomendaId)
+                                    .set(encomenda1)
+                                    .addOnSuccessListener(command -> {
+                                        Toast.makeText(EncomendaCadastroActivity.this, "Imagem salva com sucesso!",
+                                                Toast.LENGTH_SHORT).show();
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override

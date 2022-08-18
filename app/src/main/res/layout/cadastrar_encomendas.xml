@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.cadastrarEncomendasActivity">
+    tools:context=".view.EncomendaCadastroActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         style="@style/Widget.MaterialComponents.Toolbar.Primary"
@@ -48,7 +48,7 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/txtCadastrarLocalizar"
+        android:id="@+id/txtResultadoBusca"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"

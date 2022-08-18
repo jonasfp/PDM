@@ -1,70 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    tools:context=".view.encomendasActivity">
+    tools:context=".view.EncomendasActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/materialToolbar"
         style="@style/Widget.MaterialComponents.Toolbar.Primary"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
         android:background="@color/orange"
-        app:title="@string/encomendas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Encomendas"
         app:titleCentered="true"
         app:titleTextColor="@color/white" />
 
-    <RelativeLayout
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/materialToolbar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
-        <ImageView
-            android:id="@+id/produto"
-            android:layout_width="88dp"
-            android:layout_height="84dp"
-            android:layout_marginLeft="80dp"
-            android:src="@drawable/imgcadastrar" />
-
-        <TextView
-            android:id="@+id/textViewCadastrar"
+        <RadioButton
+            android:id="@+id/radioButtonNaoEntregues"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@+id/produto"
-            android:text="@string/produto"
-            android:textColor="@color/orange"
-            android:textSize="30dp"/>
+            android:checked="true"
+            android:text="Não entregues" />
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/imgBuscar"
-            android:layout_width="88dp"
-            android:layout_height="84dp"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/imgbuscar" />
-
-        <TextView
-            android:id="@+id/txtBuscar"
+        <RadioButton
+            android:id="@+id/radioButtonEntregues"
+            android:layout_marginLeft="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="30dp"
-            android:layout_toRightOf="@+id/imgBuscar"
-            android:text="@string/pesquisar"
-            android:textColor="@color/orange"
-            android:textSize="30dp" />
+            android:text="Entregues" />
+    </RadioGroup>
 
-    </RelativeLayout>
+    <ListView
+        android:id="@+id/list_view_encomendas"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

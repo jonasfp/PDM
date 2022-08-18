@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.cadastrarEncomendasActivity">
+    tools:context=".view.EncomendaCadastroActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         style="@style/Widget.MaterialComponents.Toolbar.Primary"
@@ -16,6 +16,7 @@
         app:title="@string/pesquisar"
         app:titleCentered="true"
         app:titleTextColor="@color/white" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,13 +28,26 @@
         android:textColor="#959595"
         android:textSize="17dp"/>
 
-    <Spinner
-        android:id="@+id/spinerEncomendas"
+    <RadioGroup
+        android:orientation="horizontal"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="40dp" />
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/radioButtonCondomino"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Encomendas" />
+
+        <RadioButton
+            android:id="@+id/radioButtonPorteiro"
+            android:layout_marginLeft="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Condôminos" />
+    </RadioGroup>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -62,18 +76,14 @@
             android:layout_marginTop="20dp"
             android:layout_toRightOf="@+id/edit_PesquisarApartamento"
             android:src="@drawable/imgbuscar" />
-
-
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/txtCadastrarLocalizar"
+        android:id="@+id/txtResultadoBusca"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="@color/orange"
         android:textSize="15dp" />
-
-
 
 </LinearLayout>

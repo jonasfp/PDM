@@ -16,19 +16,19 @@
         android:theme="@style/Theme.Cheguei_102"
         tools:targetApi="31">
         <activity
-            android:name=".view.listarEncomendas"
+            android:name=".CondominoEncomendasActivity"
             android:exported="false" />
         <activity
-            android:name=".view.persquisarActivity"
+            android:name=".view.EncomendasActivity"
             android:exported="false" />
         <activity
-            android:name=".view.listarUsuarios"
+            android:name=".view.PesquisaActivity"
             android:exported="false" />
         <activity
-            android:name=".view.visualizarActivity"
+            android:name=".view.CondominosActivity"
             android:exported="false" />
         <activity
-            android:name=".view.loginActivity"
+            android:name=".view.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,9 +36,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.criarContaActivity" />
-        <activity android:name=".view.cadastrarEncomendasActivity" />
-        <activity android:name=".view.encomendasActivity" />
+        <activity android:name=".view.CadastroActivity" />
+        <activity android:name=".view.EncomendaCadastroActivity" />
+        <activity android:name=".view.PorteiroActivity" />
     </application>
 
 </manifest>

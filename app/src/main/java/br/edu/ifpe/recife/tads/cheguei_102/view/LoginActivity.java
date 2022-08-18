@@ -12,7 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -22,47 +21,39 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.List;
-
 import br.edu.ifpe.recife.tads.cheguei_102.R;
-import br.edu.ifpe.recife.tads.cheguei_102.model.Encomenda;
-import br.edu.ifpe.recife.tads.cheguei_102.model.Usuario;
 
-public class loginActivity extends AppCompatActivity {
-    private EditText mEditEmail;
-    private EditText mEditPassword;
-    private Button mBtnEnter;
-    private TextView mTxtAccount;
-    private List<Encomenda> encomendas;
-
+public class LoginActivity extends AppCompatActivity {
+    private EditText editEmail;
+    private EditText editSenha;
+    private Button btnEntrar;
+    private TextView textCriarConta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        mEditEmail = findViewById(R.id.edit_email);
-        mEditPassword = findViewById(R.id.edit_senha);
-        mBtnEnter = findViewById(R.id.btn_entrar);
-        mTxtAccount = findViewById(R.id.txt_criarconta_);
-        mBtnEnter.setOnClickListener(new View.OnClickListener() {
+
+        editEmail = findViewById(R.id.edit_email);
+        editSenha = findViewById(R.id.edit_senha);
+        btnEntrar = findViewById(R.id.btn_entrar);
+        textCriarConta = findViewById(R.id.txt_criarconta);
+
+        btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = mEditEmail.getText().toString();
-                String password = mEditPassword.getText().toString();
-//                String email = "terraca@gmail.com";
-//                String password = "123456";
-                Log.i("Teste", email);
-                Log.i("Teste", password);
+                String email = editEmail.getText().toString();
+                String password = editSenha.getText().toString();
 
                 if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
-                    Toast.makeText(loginActivity.this, "Nome, senha e email devem ser preenchidos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Nome, senha e email devem ser preenchidos", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(loginActivity.this, "Login efetuado com sucesso!",
+                                Toast.makeText(LoginActivity.this, "Login efetuado com sucesso!",
                                         Toast.LENGTH_SHORT).show();
                                 String uid = task.getResult().getUser().getUid();
 
@@ -74,14 +65,15 @@ public class loginActivity extends AppCompatActivity {
                                                 if (task.isSuccessful()) {
                                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                                         if (document.getString("uid").equals(uid)) {
-                                                            if (document.getString("perfil").equals("funcionario")) {
-                                                                Intent intent = new Intent(loginActivity.this, encomendasActivity.class);
+                                                            if (document.getString("perfil").equals("porteiro")) {
+                                                                Intent intent = new Intent(LoginActivity.this, PorteiroActivity.class);
                                                                 startActivity(intent);
-                                                            } else if(document.getString("uid").equals(uid)) {
-                                                                Intent intent1 = new Intent(loginActivity.this, listarEncomendas.class);
-                                                                String nomeUsuario = document.getString("nomeUsuario");
+                                                            } else if (document.getString("perfil").equals("condomino")) {
+                                                                Intent intent1 = new Intent(LoginActivity.this, EncomendasActivity.class);
+                                                                String nomeUsuario = document.getString("apartamento");
                                                                 Bundle bundle = new Bundle();
-                                                                bundle.putString("apt",nomeUsuario);
+                                                                bundle.putString("apartamento",nomeUsuario);
+                                                                bundle.putBoolean("esconderBotao", true);
                                                                 intent1.putExtras(bundle);
                                                                 startActivity(intent1);
                                                             }
@@ -95,7 +87,7 @@ public class loginActivity extends AppCompatActivity {
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(loginActivity.this, "Não foi possível fazer login!",
+                                Toast.makeText(LoginActivity.this, "Não foi possível fazer login!",
                                         Toast.LENGTH_SHORT).show();
 
                                 Log.i("Teste", e.getMessage());
@@ -104,10 +96,10 @@ public class loginActivity extends AppCompatActivity {
             }
         });
 
-        mTxtAccount.setOnClickListener(new View.OnClickListener() {
+        textCriarConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(loginActivity.this, criarContaActivity.class);
+                Intent intent = new Intent(LoginActivity.this, CadastroActivity.class);
                 startActivity(intent);
             }
         });

@@ -7,26 +7,29 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import java.util.ArrayList;
+import java.util.Comparator;
+
 import br.edu.ifpe.recife.tads.cheguei_102.R;
 import br.edu.ifpe.recife.tads.cheguei_102.model.Usuario;
 
-public class UsuariosAdapter extends ArrayAdapter<Usuario> {
+public class CondominosAdapter extends ArrayAdapter<Usuario> {
 
-    private ArrayList<Usuario> mSnapshots;
+    private ArrayList<Usuario> usuarios;
 
-    public UsuariosAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Usuario> mSnapshots) {
-        super(context, resource, mSnapshots);
-        this.mSnapshots = mSnapshots;
-
+    public CondominosAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Usuario> usuarios) {
+        super(context, resource, usuarios);
+        usuarios.sort(Comparator.comparing(Usuario::getApartamento));
+        this.usuarios = usuarios;
     }
+
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View listItem = inflater.inflate(R.layout.usuarios_adapter2, null, true);
+        View listItem = inflater.inflate(R.layout.condominos_adapter, null, true);
         TextView nome = listItem.findViewById(R.id.textViewNomeUsuario);
         TextView email = listItem.findViewById(R.id.textViewEmail);
-        nome.setText(mSnapshots.get(position).getNomeUsuario());
-        email.setText(mSnapshots.get(position).getEmail());
+        nome.setText(usuarios.get(position).getApartamento());
+        email.setText(usuarios.get(position).getEmail());
 
         return listItem;
     }

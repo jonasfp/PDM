@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "br.edu.ifpe.recife.tads.cheguei_102"
-        minSdk 21
+        minSdk 26
         targetSdk 32
         versionCode 1
         versionName "1.0"

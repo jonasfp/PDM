@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -25,59 +26,53 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import br.edu.ifpe.recife.tads.cheguei_102.R;
 import br.edu.ifpe.recife.tads.cheguei_102.model.Usuario;
 
-public class criarContaActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class CadastroActivity extends AppCompatActivity {
+
     private EditText mEditUsername;
     private EditText mEditEmail;
     private EditText mEditPassword;
     private Button mBtnEnter;
-    private Spinner spinner;
+    private RadioButton radioButtonCondomino;
+    private RadioButton radioButtonPorteiro;
     Usuario usuario = new Usuario();
-
+    private boolean porteiro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.criar_conta);
-        mEditUsername = (EditText) findViewById(R.id.edit_criarnome);
-        mEditEmail = (EditText) findViewById(R.id.edit_criaremail);
-        mEditPassword = (EditText) findViewById(R.id.edit_criarsenha);
-        spinner = (Spinner) findViewById(R.id.spinerUsuario);
-        spinner.setOnItemSelectedListener(this);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.perfil, R.layout.spinner);
-        adapter.setDropDownViewResource(R.layout.spinner);
-        spinner.setAdapter(adapter);
+        setContentView(R.layout.cadastro);
+        mEditUsername = findViewById(R.id.edit_criarnome);
+        mEditEmail = findViewById(R.id.edit_criaremail);
+        mEditPassword = findViewById(R.id.edit_criarsenha);
         mBtnEnter = findViewById(R.id.btn_criarcadastro);
+        radioButtonCondomino = findViewById(R.id.radioButtonCondomino);
+        radioButtonPorteiro = findViewById(R.id.radioButtonPorteiro);
+
         mBtnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createUser();
             }
         });
-    }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        radioButtonCondomino.setOnClickListener(v -> {
+            this.porteiro = false;
+            mEditUsername.setText("");
+            mEditEmail.setText("");
+            mEditPassword.setText("");
+            mEditUsername.setVisibility(View.VISIBLE);
+            mEditUsername.setHint("Digite o número do apartamento");
+            usuario.setPerfil("condomino");
+        });
 
-
-        if (position == 1) {
-            mEditUsername.setHint("Digite o númedo do apartamento");
-            usuario.setPerfil("morador");
-
-        } else if (position == 2) {
-            mEditUsername.setHint("Digite o nome do porteiro");
-            usuario.setPerfil("funcionario");
-
-        } else {
-            mEditUsername.setHint("");
-            usuario.setPerfil("");
-        }
-
-        Log.i("Teste", usuario.getPerfil());
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
+        radioButtonPorteiro.setOnClickListener(v -> {
+            this.porteiro = true;
+            mEditUsername.setText("");
+            mEditEmail.setText("");
+            mEditPassword.setText("");
+            mEditUsername.setVisibility(View.GONE);
+            usuario.setPerfil("porteiro");
+        });
     }
 
     private void createUser() {
@@ -86,10 +81,16 @@ public class criarContaActivity extends AppCompatActivity implements AdapterView
         String senha = mEditPassword.getText().toString();
         String perfil = usuario.getPerfil();
 
-        if (usuario.getPerfil() == null || nome == null || nome.isEmpty() || email == null || email.isEmpty() || senha == null || senha.isEmpty()) {
-
-            Toast.makeText(this, "Erro! Todos os campos devem ser preenchidos", Toast.LENGTH_SHORT).show();
-            return;
+        if (porteiro) {
+            if (usuario.getPerfil() == null || email == null || email.isEmpty() || senha == null || senha.isEmpty()) {
+                Toast.makeText(this, "Erro! Todos os campos devem ser preenchidos", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } else {
+            if (usuario.getPerfil() == null || nome == null || nome.isEmpty() || email == null || email.isEmpty() || senha == null || senha.isEmpty()) {
+                Toast.makeText(this, "Erro! Todos os campos devem ser preenchidos", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
 
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, senha)
@@ -118,7 +119,7 @@ public class criarContaActivity extends AppCompatActivity implements AdapterView
                         } else {
                             msg = "Erro no Cadastro";
                         }
-                        Toast.makeText(criarContaActivity.this, msg,
+                        Toast.makeText(CadastroActivity.this, msg,
                                 Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -129,6 +130,5 @@ public class criarContaActivity extends AppCompatActivity implements AdapterView
                     }
                 });
     }
-
 
 }

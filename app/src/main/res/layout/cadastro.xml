@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".view.loginActivity">
+    tools:context=".view.CadastroActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:layout_width="match_parent"
@@ -26,13 +26,26 @@
         android:textColor="#959595"
         android:textSize="20dp"/>
 
-    <Spinner
-        android:id="@+id/spinerUsuario"
+    <RadioGroup
+        android:orientation="horizontal"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="40dp" />
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/radioButtonCondomino"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Condômino" />
+
+        <RadioButton
+            android:id="@+id/radioButtonPorteiro"
+            android:layout_marginLeft="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Porteiro" />
+    </RadioGroup>
 
     <EditText
         android:id="@+id/edit_criarnome"
